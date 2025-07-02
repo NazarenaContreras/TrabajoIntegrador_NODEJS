@@ -1,0 +1,17 @@
+[
+    {
+        "id": 201,
+        "name": "Ballantine Books",
+        "country": "Estados Unidos"
+    },
+    {
+        "id": 202,
+        "name": "Editorial Sudamericana",
+        "country": "Argentina"
+    },
+    {
+        "id": 203,
+        "name": "Ediciones Alfaguara",
+        "country": "Espania"
+    }
+]

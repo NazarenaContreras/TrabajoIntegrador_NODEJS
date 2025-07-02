@@ -1,0 +1,17 @@
+[
+    {
+        "id": 101,
+        "name": "John Katzenbach",
+        "nationality": "Estadounidense"
+    },
+    {
+        "id": 102,
+        "name": "Gabriel García Márquez",
+        "nationality": "Colombiano"
+    },
+    {
+        "id": 103,
+        "name": "Julio Cortazar",
+        "nationality": "Argentino"
+    }
+]

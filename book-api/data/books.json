@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "El psicoanalista",
+        "autorId": 101,
+        "publisherId": 201,
+        "year": 2002
+    },
+    {
+        "id": 2,
+        "title": "Cien anios de soledad",
+        "autorId": 102,
+        "publisherId": 202,
+        "year": 1967
+    },
+    {
+        "id": 3,
+        "title": "El psicoanalista",
+        "autorId": 103,
+        "publisherId": 203,
+        "year": 1963
+    }
+]
