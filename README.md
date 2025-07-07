@@ -41,8 +41,11 @@ Este proyecto es una aplicación cliente-servidor construida con Node.js que sim
    cd biblioteca-tcp
 
 npm install uuid
+
 node server.js
+
 node client.js
+
 
 #💬 Comandos disponibles
 GET BOOKS — Lista todos los libros.
