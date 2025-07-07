@@ -30,7 +30,7 @@ client.on('error', (err) => {
 
 // funcion para enviar comandos
 function pedirComando() {
-    rl.question('>> Ingresa un comando, por ejemlpo "ADD BOOK" O "SALIR": ', (comando) => {
+    rl.question('>> Ingresa un comando, por ejemplo "GET BOOKS", "GET AUTHORS", "ADD BOOK", o "SALIR": ', (comando) => {
         if (comando.trim() === 'ADD BOOK') {
             agregarLibroInteractivo();
         } else if (comando.trim() === 'SALIR') {

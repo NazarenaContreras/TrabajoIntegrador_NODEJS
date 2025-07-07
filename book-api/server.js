@@ -7,13 +7,13 @@ const server = net.createServer((socket) => {
     console.log('Nuevo cliente conectado');
 
     socket.on('data', (data) => {
-        const mensaje = DataTransfer.toString().trim();
+        const mensaje = data.toString().trim();
 
         if(mensaje === 'GET BOOKS') {
             booksController.handleGetBooks(socket);
         } else if (mensaje.startsWith('ADD BOOK')) {
             const datos = mensaje.slice(9);
-            cooksController.handleAddBook(socket, datos);
+            booksController.handleAddBook(socket, datos);
         } else if (mensaje === 'GET AUTHORS') {
             authorsController.handleGetAuthors(socket);
         } else if (mensaje.startsWith('GET AUTHOR')) {
@@ -38,8 +38,9 @@ const server = net.createServer((socket) => {
     socket.on('error', (err) => {
         console.error('Error de conexion: ', err.message);
     });
+});
 
-    server.listen(8080, () => {
-        console.log('Servidor escuchando en el puerto 8080');
-    });
-})
+server.listen(8080, () => {
+    console.log('Servidor escuchando en el puerto 8080');
+});
+
