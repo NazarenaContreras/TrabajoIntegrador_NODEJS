@@ -2,17 +2,17 @@
 
 # 📚 Biblioteca TCP - Node.js
 
-Este proyecto es una aplicación cliente-servidor construida con Node.js que simula una biblioteca digital. Utiliza el módulo `net` para establecer una comunicación TCP entre cliente y servidor, y permite gestionar libros, autores y editoriales mediante comandos personalizados.
+Este proyecto es una aplicacion cliente-servidor construida con Node.js que simula una biblioteca digital. Utiliza el modulo `net` para establecer una comunicacion TCP entre cliente y servidor, y permite gestionar libros, autores y editoriales mediante comandos personalizados.
 
 ---
 
-## :fa-book: Características
+## :fa-book: Caracteristicas
 
-- Comunicación TCP entre cliente y servidor.
+- Comunicacion TCP entre cliente y servidor.
 - Comandos interactivos para:
   - Obtener libros, autores y editoriales.
   - Agregar nuevos libros.
-- Validación de datos y estructura modular basada en el patrón MVC.
+- Validacion de datos y estructura modular basada en el patron MVC.
 - Persistencia de datos en archivos JSON.
 
 ---
@@ -33,9 +33,9 @@ Este proyecto es una aplicación cliente-servidor construida con Node.js que sim
 
 ---
 
-## 🛠️ Instalación y uso
+## 🛠️ Instalacion y uso
 
-1. Cloná el repositorio:
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/tu-usuario/biblioteca-tcp.git
    cd biblioteca-tcp
@@ -61,7 +61,7 @@ GET PUBLISHERS — Lista todas las editoriales.
 
 GET PUBLISHER <id> — Muestra una editorial por ID.
 
-SALIR — Finaliza la conexión.
+SALIR — Finaliza la conexion.
 
 
 ##🧠 Tecnologías utilizadas
