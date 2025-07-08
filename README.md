@@ -51,15 +51,15 @@ node client.js
 
 GET BOOKS — Lista todos los libros.
 
-ADD BOOK — Agrega un nuevo libro (interactivo).
-
 GET AUTHORS — Lista todos los autores.
-
-GET AUTHOR <id> — Muestra un autor por ID.
 
 GET PUBLISHERS — Lista todas las editoriales.
 
-GET PUBLISHER <id> — Muestra una editorial por ID.
+ADD BOOK — Agrega un nuevo libro.
+
+ADD AUTHOR - Agrega un nuevo autor.
+
+ADD PUBLISHER - Agrega una nueva editorial.
 
 SALIR — Finaliza la conexion.
 
