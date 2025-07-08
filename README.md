@@ -47,7 +47,8 @@ node server.js
 node client.js
 
 
-#💬 Comandos disponibles
+##💬 Comandos disponibles
+
 GET BOOKS — Lista todos los libros.
 
 ADD BOOK — Agrega un nuevo libro (interactivo).
@@ -63,7 +64,8 @@ GET PUBLISHER <id> — Muestra una editorial por ID.
 SALIR — Finaliza la conexión.
 
 
-#🧠 Tecnologías utilizadas
+##🧠 Tecnologías utilizadas
+
 Node.js
 
 Módulo net para sockets TCP
@@ -75,6 +77,7 @@ Arquitectura MVC
 Archivos JSON como base de datos
 
 📌 Notas
+
 Los datos se almacenan en archivos .json, por lo que no se requiere base de datos externa.
 
 El sistema valida la estructura de los libros antes de agregarlos.
@@ -82,6 +85,7 @@ El sistema valida la estructura de los libros antes de agregarlos.
 Se pueden extender facilmente comandos como DELETE BOOK, UPDATE AUTHOR, etc.
 
 ✍️ Autor
+
 Desarrollado por Nazarena Contreras como parte de mi aprendizaje en Node.js y arquitectura modular.
 
 ![image](https://github.com/user-attachments/assets/73471130-b278-46ef-9680-96cba409a01a)
