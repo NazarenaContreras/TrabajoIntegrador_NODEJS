@@ -23,20 +23,13 @@ function saveAuthors(authors) {
     }
 }
 
-// para buscar autor por id
-function getAuthorById(id) {
-    const authors = getAuthors();
-    return authors.find(author => author.id === id);
-}
-
 // para validar estructura de autor
 function isValidAuthor(author) {
-    const campos = ['id', 'name', 'nationality'];
+    const campos = ['name', 'nationality'];
     return campos.every(c => author.hasOwnProperty(c));
 }
 module.exports = {
     getAuthors,
     saveAuthors,
-    getAuthorById,
     isValidAuthor
 };

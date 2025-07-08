@@ -15,23 +15,23 @@ function handleAddBook(socket, datos) {
             throw new Error('Faltan campos obligatorios o formato incorrecto');
         }
 
-        const libros = Book.getBoooks();
+        const libros = Book.getBooks(); // corregido
         libros.push(nuevoLibro);
         Book.saveBooks(libros);
 
-        socket.write('Libro agregado exitosamente. \n');
+        socket.write('Libro agregado exitosamente.\n');
     } catch (err) {
         socket.write(`Error al agregar libro: ${err.message}\n`);
     }
 }
 
 function handleSalir(socket) {
-    socket.write('Adios!\n');
+    socket.write('👋 Adios!\n');
     socket.end();
 }
 
 function handleUnknownCommand(socket) {
-    socket.write('Comando no reconocido. \n');
+    socket.write('Comando no reconocido.\n');
 }
 
 module.exports = {

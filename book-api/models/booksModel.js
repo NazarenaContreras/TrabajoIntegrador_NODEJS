@@ -25,7 +25,7 @@ function addBook(book) {
 }
 
 function isValidBook(book) {
-    const campos = ['id', 'title', 'authorId', 'year'];
+    const campos = ['title', 'authorId', 'publisherId', 'year'];
     return campos.every(c => book.hasOwnProperty(c));
 }
 
