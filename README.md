@@ -6,7 +6,7 @@ Este proyecto es una aplicacion cliente-servidor construida con Node.js que simu
 
 ---
 
-## :fa-book: Caracteristicas
+## Caracteristicas
 
 - Comunicacion TCP entre cliente y servidor.
 - Comandos interactivos para:
@@ -47,7 +47,7 @@ node server.js
 node client.js
 
 
-##💬 Comandos disponibles
+## 💬 Comandos disponibles
 
 GET BOOKS — Lista todos los libros.
 
@@ -64,7 +64,7 @@ ADD PUBLISHER - Agrega una nueva editorial.
 SALIR — Finaliza la conexion.
 
 
-##🧠 Tecnologías utilizadas
+## 🧠 Tecnologías utilizadas
 
 Node.js
 
