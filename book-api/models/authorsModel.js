@@ -25,9 +25,12 @@ function saveAuthors(authors) {
 
 // para validar estructura de autor
 function isValidAuthor(author) {
-    const campos = ['name', 'nationality'];
-    return campos.every(c => author.hasOwnProperty(c));
+    return (
+        typeof author.name === 'string' &&
+        typeof author.nationality === 'string'
+    );
 }
+
 module.exports = {
     getAuthors,
     saveAuthors,

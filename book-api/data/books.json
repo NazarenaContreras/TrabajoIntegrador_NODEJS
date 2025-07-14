@@ -1,23 +1,23 @@
 [
-    {
-        "id": 1,
-        "title": "El psicoanalista",
-        "autorId": 101,
-        "publisherId": 201,
-        "year": 2002
-    },
-    {
-        "id": 2,
-        "title": "Cien anios de soledad",
-        "autorId": 102,
-        "publisherId": 202,
-        "year": 1967
-    },
-    {
-        "id": 3,
-        "title": "El psicoanalista",
-        "autorId": 103,
-        "publisherId": 203,
-        "year": 1963
-    }
+  {
+    "id": "b1",
+    "title": "El psicoanalista",
+    "authorId": "a1",
+    "publisherId": "p1",
+    "year": 2002
+  },
+  {
+    "id": "b2",
+    "title": "Cien anios de soledad",
+    "authorId": "a2",
+    "publisherId": "p2",
+    "year": 1967
+  },
+  {
+    "id": "b3",
+    "title": "Rayuela",
+    "authorId": "a3",
+    "publisherId": "p3",
+    "year": 1963
+  }
 ]

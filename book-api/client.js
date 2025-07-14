@@ -1,99 +1,144 @@
-const net = require("net");
-const readline = require("readline");
+const net = require('net');
+const readline = require('readline');
+const { getAuthors } = require('./models/authorsModel');
+const { getPublishers } = require('./models/publishersModel');
 
-// crear interface
+const client = new net.Socket();
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
+  output: process.stdout
 });
 
-// coneion al servidor
-const client = net.createConnection({ port: 8080 }, () => {
-  console.log("Conectado al servidor TCP");
+client.connect(8080, 'localhost', () => {
+  console.log('Conectado al servidor TCP\n');
   pedirComando();
 });
 
-client.on("data", (data) => {
-  console.log("Respuesta del servidor: ", data.toString());
+client.on('data', (data) => {
+  console.log('Respuesta del servidor: \n', data.toString());
   pedirComando();
 });
 
-client.on("end", () => {
-  console.log("Desconectado del servidor");
+client.on('close', () => {
+  console.log('Conexion cerrada.');
   rl.close();
 });
 
-client.on("error", (err) => {
-  console.log("Error: ", err.message);
-  rl.close();
-});
-
-// funcion para enviar comandos
 function pedirComando() {
-  rl.question(
-    '>> Ingresa un comando, por ejemplo "GET BOOKS", "GET AUTHORS", "ADD BOOK", "ADD AUTHOR", "ADD PUBLISHER" o "SALIR": ',
-    (comando) => {
-      const cmd = comando.trim();
+  rl.question('\n>> Ingresa un comando, por ejemplo: (GET BOOKS, ADD BOOK, GET AUTHORS, ADD AUTHOR, SALIR): ', (comando) => {
+    switch (comando.toUpperCase()) {
+      case 'GET BOOKS':
+      case 'GET AUTHORS':
+      case 'GET PUBLISHERS':
+        client.write(comando.toUpperCase());
+        break;
 
-      if (cmd === "ADD BOOK") {
+      case 'ADD BOOK':
         agregarLibroInteractivo();
-      } else if (cmd === "ADD AUTHOR") {
+        break;
+
+      case 'ADD AUTHOR':
         agregarAutorInteractivo();
-      } else if (cmd === "ADD PUBLISHER") {
+        break;
+
+      case 'ADD PUBLISHER':
         agregarEditorialInteractiva();
-      } else if (cmd === "SALIR") {
-        client.write("SALIR");
-        client.end();
-      } else {
-        client.write(cmd);
-      }
+        break;
+
+      case 'SALIR':
+        client.write('SALIR');
+        break;
+
+      default:
+        console.log('Comando no reconocido.');
+        pedirComando();
     }
-  );
+  });
 }
 
-// funcion para pedir campos y enviar el libro
 function agregarLibroInteractivo() {
-  const libro = {};
-  rl.question("Titulo: ", (titulo) => {
-    libro.title = titulo;
-    rl.question("ID del autor: ", (autorId) => {
-      libro.authorId = parseInt(autorId);
-      rl.question("ID de la editorial: ", (publisherId) => {
-        libro.publisherId = parseInt(publisherId);
-        rl.question("Anio de publicacion: ", (year) => {
-          libro.year = parseInt(year);
+  console.log('\nAgregar nuevo libro');
 
-          // enviar el comando con JSON incluido
-          const mensaje = "ADD BOOK " + JSON.stringify(libro);
-          client.write(mensaje);
-        });
+  const autores = getAuthors();
+  console.log('\nAutores disponibles:');
+  autores.forEach(a => console.log(`- ${a.name}`));
+
+  rl.question('Nombre del nuevo autor: ', (authorName) => {
+    const autorExiste = autores.some(a => a.name.toLowerCase() === authorName.trim().toLowerCase());
+
+    if (!autorExiste) {
+      console.log(`El autor "${authorName}" no existe. Vamos a agregarlo.`);
+
+      rl.question('Nacionalidad del autor: ', (nationality) => {
+        const nuevoAutor = { name: authorName.trim(), nationality: nationality.trim() };
+        client.write(`ADD AUTHOR ${JSON.stringify(nuevoAutor)}`);
+        console.log('Solicitud de alta enviada al servidor.');
+
+        continuarConEditorial(authorName); // continuamos luego de agregar autor
       });
+    } else {
+      continuarConEditorial(authorName); // autor ya existe
+    }
+  });
+}
+
+function continuarConEditorial(authorName) {
+  const editoriales = getPublishers();
+  console.log('\nEditoriales disponibles:');
+  editoriales.forEach(e => console.log(`- ${e.name}`));
+
+  rl.question('Nombre de la nueva editorial: ', (publisherName) => {
+    const editorialExiste = editoriales.some(e => e.name.toLowerCase() === publisherName.trim().toLowerCase());
+
+    if (!editorialExiste) {
+      console.log(`La editorial "${publisherName}" no existe. Vamos a agregarla.`);
+
+      rl.question('País de origen de la editorial: ', (country) => {
+        const nuevaEditorial = { name: publisherName.trim(), country: country.trim() };
+        client.write(`ADD PUBLISHER ${JSON.stringify(nuevaEditorial)}`);
+        console.log('Solicitud de alta enviada al servidor.');
+
+        continuarConCargaLibro(authorName, publisherName);
+      });
+    } else {
+      continuarConCargaLibro(authorName, publisherName);
+    }
+  });
+}
+
+function continuarConCargaLibro(authorName, publisherName) {
+  rl.question('Titulo del libro: ', (title) => {
+    rl.question('Anio de publicacion: ', (year) => {
+      const nuevoLibro = {
+        title,
+        authorName: authorName.trim(),
+        publisherName: publisherName.trim(),
+        year
+      };
+      client.write(`ADD BOOK ${JSON.stringify(nuevoLibro)}`);
+    });
+  });
+}
+
+
+
+function agregarAutorInteractivo() {
+  console.log('\nAgregar nuevo autor');
+  rl.question('Nombre del autor: ', (name) => {
+    rl.question('Nacionalidad: ', (nationality) => {
+      const nuevoAutor = { name: name.trim(), nationality: nationality.trim() };
+      client.write(JSON.stringify(nuevoAutor));
     });
   });
 }
 
 function agregarEditorialInteractiva() {
-  const editorial = {};
-  rl.question("Nombre de la editorial: ", (nombre) => {
-    editorial.name = nombre;
-    rl.question("País: ", (pais) => {
-      editorial.country = pais;
-
-      const mensaje = "ADD PUBLISHER " + JSON.stringify(editorial);
-      client.write(mensaje);
+  console.log('\nAgregar nueva editorial');
+  rl.question('Nombre de la editorial: ', (name) => {
+    rl.question('Pais de origen: ', (country) => {
+      const nuevaEditorial = { name: name.trim(), country: country.trim() };
+      client.write(JSON.stringify(nuevaEditorial));
     });
   });
 }
 
-function agregarAutorInteractivo() {
-  const autor = {};
-  rl.question("Nombre del autor: ", (nombre) => {
-    autor.name = nombre;
-    rl.question("Nacionalidad: ", (nacionalidad) => {
-      autor.nationality = nacionalidad;
-
-      const mensaje = "ADD AUTHOR " + JSON.stringify(autor);
-      client.write(mensaje);
-    });
-  });
-}

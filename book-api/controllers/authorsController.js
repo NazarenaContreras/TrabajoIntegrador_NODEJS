@@ -28,7 +28,7 @@ function handleAddAuthor(socket, datos) {
         autores.push(nuevoAutor);
         Author.saveAuthors(autores);
 
-        socket.write('Autor agregado exitosamente.\n');
+        socket.write(`Autor agregado: ${nuevoAutor.name} (${nuevoAutor.nationality}) - ID: ${nuevoAutor.id}\n`);
     } catch (err) {
         socket.write(`Error al agregar autor: ${err.message}\n`);
     }

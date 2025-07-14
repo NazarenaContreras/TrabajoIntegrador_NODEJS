@@ -21,19 +21,24 @@ const server = net.createServer((socket) => {
       const id = mensaje.slice(11).trim();
       authorsController.handleGetAuthorById(socket, id);
     } else if (mensaje.startsWith("ADD AUTHOR")) {
-      const datos = mensaje.slice(10).trim();
+      const datos = mensaje.replace('ADD AUTHOR', '').trim();
       authorsController.handleAddAuthor(socket, datos);
     } else if (mensaje === "GET PUBLISHERS") {
       publishersController.handleGetPublishers(socket);
     } else if (mensaje.startsWith("GET PUBLISHER")) {
       const id = mensaje.slice(13).trim();
       publishersController.handleGetPublisherById(socket, id);
+    } else if (mensaje.startsWith("ADD PUBLISHER")) {
+      const datos = mensaje.replace('ADD PUBLISHER', '').trim();
+      publishersController.handleAddPublisher(socket, datos);
     } else if (mensaje === "SALIR") {
       booksController.handleSalir(socket);
     } else {
       booksController.handleUnknownCommand(socket);
     }
   });
+
+
   socket.on("end", () => {
     console.log("Cliente desconectado.");
   });

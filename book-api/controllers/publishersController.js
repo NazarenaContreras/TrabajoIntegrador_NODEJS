@@ -32,6 +32,10 @@ function handleAddPublisher(socket, datos) {
     try {
         const nuevaEditorial = JSON.parse(datos);
         nuevaEditorial.id = uuid();
+        nuevaEditorial.name = nuevaEditorial.name.trim();
+        nuevaEditorial.country = nuevaEditorial.country.trim();
+
+
 
         if (!Publisher.isValidPublisher(nuevaEditorial)) {
             throw new Error('Faltan campos obligatorios o formato incorrecto');
@@ -41,9 +45,9 @@ function handleAddPublisher(socket, datos) {
         editoriales.push(nuevaEditorial);
         Publisher.savePublishers(editoriales);
 
-        socket.write('✅ Editorial agregada exitosamente.\n');
+        socket.write('Editorial agregada exitosamente.\n');
     } catch (err) {
-        socket.write(`❌ Error al agregar editorial: ${err.message}\n`);
+        socket.write(`Error al agregar editorial: ${err.message}\n`);
     }
 }
 

@@ -5,33 +5,36 @@ const booksPath = path.join(__dirname, '../data/books.json');
 
 function getBooks() {
     try {
-        const data = fs.readFileSync(booksPath, 'utf-8');
-        return JSON.parse(data);
+      const data = fs.readFileSync(booksPath, 'utf-8');
+      return JSON.parse(data);
     } catch (err) {
-        console.error('Error al leer libros: ', err.messaje);
-        return[];
+        console.error('Error al leer libros: ', err.message);
+        return [];
     }
 }
 
 
-function addBook(book) {
+function saveBooks(books) {
     try {
-        const books = getBooks();
-        books.push(book);
-        fs.writeFileSync(booksPath, JSON.stringify(books, null, 2));
+      fs.writeFileSync(booksPath, JSON.stringify(books, null, 2));
     } catch (err) {
-        console.error('Error al guardar libro: ', error.messaje);
+      console.error('Error al guardar libro:', err.message);
     }
 }
+    
 
 function isValidBook(book) {
-    const campos = ['title', 'authorId', 'publisherId', 'year'];
-    return campos.every(c => book.hasOwnProperty(c));
+    return (
+        typeof book.title === 'string' &&
+        typeof book.authorId === 'string' &&
+        typeof book.publisherId === 'string' &&
+        typeof book.year === 'number'
+    );
 }
 
 
 module.exports = {
     getBooks,
-    addBook,
+    saveBooks,
     isValidBook
 };
